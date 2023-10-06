@@ -52,11 +52,9 @@ def main():
 		logging.error(f"At least one of the required environment variable is not set.")
 		exit(1)
 
-	print(sslEnabled)
-
 	os_client = OpenSearch(
 		hosts = [{'host': instance, 'port': 9200}],
-		#http_auth = auth,
+		http_auth = auth,
 		http_compress = True, 
         use_ssl = True if bool(sslEnabled) else False,
 		verify_certs = False,
@@ -70,7 +68,6 @@ def main():
 		# Snapshot repo exists, we can continue
 		snapshotsCount = len(getSnapshots(os_client, snapshotRepository)["snapshots"])
 		if snapshotsCount > 0:
-			print(snapshotsCount)
 			lastSnapshot = getSnapshotDetails(os_client, snapshotRepository, snapshotsCount - 1)
 			lastSnapshotYear="20" + lastSnapshot['date'][6:8]
 			lastSnapshotMonth=lastSnapshot['date'][0:2]
