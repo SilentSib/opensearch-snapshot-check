@@ -5,7 +5,7 @@ from datetime import datetime, date
 import os, logging
 
 # General logging configuration
-log_format = '%(name)s - %(levelname)s - %(message)s'
+log_format = '%(message)s'
 logging.basicConfig(format=log_format, level=logging.ERROR)
 logging.getLogger(__name__)
 
