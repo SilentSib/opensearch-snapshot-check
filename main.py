@@ -14,7 +14,7 @@ def getSnapshotRepository(os_instance, snapshotRepository):
 		if(client.snapshot.SnapshotClient(os_instance).get_repository(repository=snapshotRepository)):
 			return True
 	except NotFoundError:
-		logging.error(f"The repository {snapshotRepository} wasn't found. Exiting.")
+		logging.error(f"The repository \"{snapshotRepository}\" wasn't found. Exiting.")
 	except Exception as e:
 		logging.error(f"There was an exception: {e}. Exiting.")
 	return False
@@ -49,7 +49,7 @@ def main():
 	auth = (opensearchUsername, opensearchPassword)
 
 	if(not instance or not opensearchUsername or not opensearchPassword or not snapshotRepository):
-		logging.error(f"At least one of the required environment variable is not set.")
+		logging.error(f"At least one of the required environment variables is not set.")
 		exit(1)
 
 	os_client = OpenSearch(
