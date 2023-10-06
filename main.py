@@ -44,7 +44,7 @@ def main():
 	opensearchUsername = os.getenv("OPENSEARCH_USERNAME")
 	opensearchPassword = os.getenv("OPENSEARCH_PASSWORD")
 	snapshotRepository = os.getenv("OPENSEARCH_SNAPSHOT_REPOSITORY")
-	sslEnabled = os.getenv("OPENSEARCH_TLS_ENABLED", "True")
+	sslEnabled = os.getenv("OPENSEARCH_TLS_ENABLED", False)
 	
 	auth = (opensearchUsername, opensearchPassword)
 
@@ -52,11 +52,13 @@ def main():
 		logging.error(f"At least one of the required environment variable is not set.")
 		exit(1)
 
+	print(sslEnabled)
+
 	os_client = OpenSearch(
 		hosts = [{'host': instance, 'port': 9200}],
-		http_auth = auth,
+		#http_auth = auth,
 		http_compress = True, 
-		use_ssl = sslEnabled,
+        use_ssl = True if bool(sslEnabled) else False,
 		verify_certs = False,
 		ssl_assert_hostname = False,
 		ssl_show_warn = False
